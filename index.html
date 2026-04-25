@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Adjimon Jérôme VITOFFODJI — Data Scientist</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0d0f12;
+      --bg-card: #13161b;
+      --bg-hover: #1a1e25;
+      --accent: #c8a96e;
+      --accent-dim: rgba(200, 169, 110, 0.15);
+      --text: #e8e4dc;
+      --text-muted: #7a7870;
+      --text-dim: #4a4840;
+      --border: #1f2328;
+      --border-light: #2a2f38;
+      --tag-bg: #1a1e25;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.35;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(13, 15, 18, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-line {
+      position: absolute;
+      top: 0; right: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 60%, rgba(200, 169, 110, 0.03) 100%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 1.05;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 500;
+    }
+
+    .btn-primary:hover {
+      background: #d4b87a;
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .hero-stats {
+      margin-top: 4rem;
+      display: flex;
+      gap: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 6rem 3rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+    }
+
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.2rem;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── PROJETS PHARES ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2rem;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .project-card:hover {
+      border-color: var(--border-light);
+      background: var(--bg-hover);
+      transform: translateY(-2px);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .project-links a {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    .project-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .project-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      line-height: 1.75;
+    }
+
+    .project-result {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-dim);
+      border: 1px solid rgba(200, 169, 110, 0.2);
+      border-radius: 2px;
+      padding: 0.4rem 0.85rem;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 0.25rem 0.6rem;
+      border-radius: 2px;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── AUTRES PROJETS ── */
+    .other-projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .other-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: block;
+    }
+
+    .other-card:hover {
+      border-color: var(--border-light);
+      background: var(--bg-hover);
+      transform: translateY(-2px);
+    }
+
+    .other-card-title {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .other-card-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ── EXPÉRIENCES ── */
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.5rem; bottom: 0;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3rem;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.35rem;
+      top: 0.5rem;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+
+    .timeline-date {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+    }
+
+    .timeline-role {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      color: var(--text);
+      margin-bottom: 0.25rem;
+    }
+
+    .timeline-company {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-bullets {
+      list-style: none;
+      padding: 0;
+    }
+
+    .timeline-bullets li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0.2rem 0;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .timeline-bullets li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--text-dim);
+      font-size: 0.7rem;
+    }
+
+    /* ── COMPÉTENCES ── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1.5rem;
+    }
+
+    .skill-group-title {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.65rem;
+      border-radius: 2px;
+    }
+
+    /* ── FORMATION ── */
+    .formation-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .formation-item {
+      display: flex;
+      gap: 2rem;
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      align-items: flex-start;
+    }
+
+    .formation-year {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--accent);
+      white-space: nowrap;
+      padding-top: 0.15rem;
+    }
+
+    .formation-title {
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .formation-school {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      text-align: center;
+      padding: 6rem 3rem;
+    }
+
+    .contact-inner {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .contact-text {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin: 1.5rem 0 2.5rem;
+      line-height: 1.8;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      #hero { padding: 7rem 1.5rem 3rem; }
+      section { padding: 4rem 1.5rem; }
+      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .projects-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">JV / Portfolio</span>
+    <ul class="nav-links">
+      <li><a href="#projets">Projets</a></li>
+      <li><a href="#experiences">Expériences</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" style="max-width:100%;padding-top:8rem;">
+    <div class="hero-bg-line"></div>
+    <div class="hero-content">
+      <div class="hero-tag">Data Scientist · Montpellier, France</div>
+      <h1>Adjimon Jérôme<br><em>VITOFFODJI</em></h1>
+      <p class="hero-desc">
+        Master 2 Data Science (MIASHS) — Université de Montpellier Paul Valéry.<br>
+        Actuellement en stage chez Renault Groupe · AMPERE S.A.A (Sécurité Passive).<br>
+        À la recherche d'un poste en CDI — Data Scientist, Data Analyst ou Data Engineer.
+      </p>
+      <div class="hero-cta">
+        <a href="https://www.linkedin.com/in/jerome-vitoffodji" target="_blank" class="btn btn-primary">LinkedIn</a>
+        <a href="https://github.com/JeromeVitoff" target="_blank" class="btn btn-outline">GitHub</a>
+        <a href="/cdn-cgi/l/email-protection#abc1ced9c4c6ce85ddc2dfc4cdcdc4cfc1c2ebccc6cac2c785c8c4c6" class="btn btn-outline">Contact</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-value">77,53%</div>
+          <div class="stat-label">Average Precision — Nexar Kaggle</div>
+        </div>
+        <div>
+          <div class="stat-value">99,1%</div>
+          <div class="stat-label">Précision — Reconnaissance Ourdou</div>
+        </div>
+        <div>
+          <div class="stat-value">6</div>
+          <div class="stat-label">Architectures DL comparées</div>
+        </div>
+        <div>
+          <div class="stat-value">0%</div>
+          <div class="stat-label">Hallucination — OpenDataCopilot RAG</div>
+        </div>
+        <div>
+          <div class="stat-value">77,93%</div>
+          <div class="stat-label">Accuracy — Loan Default Prediction</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJETS PHARES -->
+  <section id="projets">
+    <div class="section-header fade-in">
+      <span class="section-num">01</span>
+      <h2>Projets phares</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-title">Nexar Dashcam Crash Prediction</div>
+          <div class="project-links">
+            <a href="https://github.com/JeromeVitoff/Nexar-Dashcam-Crash-Prediction-Challenge" target="_blank">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Comparaison de 6 architectures Deep Learning (CNN-RNN, CNN 3D, Vision Transformers) pour la prédiction de collisions sur 1 500 vidéos dashcam. Mémoire professionnel Master 2.</p>
+        <div class="project-result">I3D : 77,53% Average Precision · 71,2% Kaggle</div>
+        <div class="project-tags">
+          <span class="tag">PyTorch</span><span class="tag">Computer Vision</span><span class="tag">I3D</span>
+          <span class="tag">TimeSformer</span><span class="tag">VideoMAE</span><span class="tag">Kaggle</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-title">OpenDataCopilot</div>
+          <div class="project-links">
+            <a href="https://github.com/JeromeVitoff/Open_Data_Copilot" target="_blank">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Chatbot RAG multi-domaines sur données ouvertes françaises (Santé publique + Pollution atmosphérique). Comparaison rigoureuse de 4 architectures RAG, 3 LLMs (GPT-3.5, Mistral 7B, Llama3) et 4 embeddings sur 1 222 802 documents et 70 questions annotées.</p>
+        <div class="project-result">Qualité 0.757 · 0% hallucination · 100% sources citées · Mistral 7B × 500 moins cher que GPT-3.5</div>
+        <div class="project-tags">
+          <span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">ChromaDB</span>
+          <span class="tag">BM25</span><span class="tag">Mistral 7B</span><span class="tag">RAG</span>
+          <span class="tag">FastAPI</span><span class="tag">Streamlit</span><span class="tag">Ollama</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-title">ETL Pipeline Distribué</div>
+          <div class="project-links">
+            <a href="https://github.com/alvin257/etl_project" target="_blank">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Pipeline ETL scalable avec Dask Distributed sur données NYC Taxi (Kaggle). Interface Streamlit configurable via YAML, monitoring temps réel, sortie Parquet.</p>
+        <div class="project-result">Out-of-core computing · Multi-workers · Déploiement local</div>
+        <div class="project-tags">
+          <span class="tag">Dask</span><span class="tag">Streamlit</span><span class="tag">YAML</span>
+          <span class="tag">Parquet</span><span class="tag">ETL</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-title">Tableau de Bord Aurores Boréales</div>
+          <div class="project-links">
+            <a href="https://github.com/JeromeVitoff/Open_Data-Web_donnees" target="_blank">GitHub</a>
+            <a href="https://web-production-ff2d6.up.railway.app/" target="_blank">Démo</a>
+          </div>
+        </div>
+        <p class="project-desc">Dashboard interactif combinant 4 APIs publiques (NOAA, Open-Meteo, OpenWeatherMap) pour calculer en temps réel la probabilité d'observation des aurores boréales.</p>
+        <div class="project-result">Déployé en production · Railway</div>
+        <div class="project-tags">
+          <span class="tag">Streamlit</span><span class="tag">Plotly</span><span class="tag">APIs</span>
+          <span class="tag">Open Data</span><span class="tag">NOAA</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-title">Reconnaissance Caractères Ourdou</div>
+          <div class="project-links">
+            <a href="https://github.com/JeromeVitoff/IST-Deep-Learning-Workshop" target="_blank">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Classification CNN de caractères ourdous manuscrits sur 40 classes. Kaggle Challenge — Master 1 MIASHS.</p>
+        <div class="project-result">99,1% de précision · 40 classes</div>
+        <div class="project-tags">
+          <span class="tag">TensorFlow</span><span class="tag">CNN</span><span class="tag">BatchNorm</span>
+          <span class="tag">Dropout</span><span class="tag">Kaggle</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-title">Analyse Textuelle Artist-Run Spaces</div>
+          <div class="project-links">
+            <a href="https://github.com/vitamineeo/Projet-TER-artiste-run-spaces" target="_blank">GitHub</a>
+          </div>
+        </div>
+        <p class="project-desc">Exploration et enrichissement de données textuelles sur les espaces culturels autogérés à travers le monde. Pipeline NLP complet avec modélisation thématique avancée, analyse de graphes et front-end React/TypeScript pour la visualisation des résultats.</p>
+        <div class="project-result">BERTopic · UMAP · HDBSCAN · Sentence Transformers · OpenAI API</div>
+        <div class="project-tags">
+          <span class="tag">SpaCy</span><span class="tag">BERTopic</span><span class="tag">Gensim</span>
+          <span class="tag">UMAP</span><span class="tag">HDBSCAN</span><span class="tag">NetworkX</span>
+          <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">PyTorch</span>
+        </div>
+      </div>
+
+      <div class="project-card fade-in">
+        <div class="project-header">
+          <div class="project-title">Projet Apprentis Chimistes — Sanofi</div>
+          <div class="project-links">
+            <a href="https://www.marathonduweb.fr/blog/2025-11/apprenti-e-s-chimistes-32" target="_blank">Démo</a>
+          </div>
+        </div>
+        <p class="project-desc">Application Streamlit connectée à Snowflake avec modèles prédictifs de production pharmaceutique. Développé lors du Marathon du Web 2025.</p>
+        <div class="project-result">XGBoost · Régression · Snowflake</div>
+        <div class="project-tags">
+          <span class="tag">Streamlit</span><span class="tag">Snowflake</span><span class="tag">XGBoost</span>
+          <span class="tag">Régression</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- AUTRES PROJETS -->
+  <section id="autres-projets" style="padding-top:0;">
+    <div class="section-header fade-in">
+      <span class="section-num">02</span>
+      <h2>Autres projets</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="other-projects">
+      <a href="https://github.com/JeromeVitoff/Loan-Default-Prediction" target="_blank" class="other-card fade-in">
+        <div class="other-card-title">Prédiction Défaut de Crédit</div>
+        <div class="other-card-desc">Comparaison de 5 modèles ML (Random Forest, Régression Logistique, SVM, KNN, Arbre de décision) sur 7 500 emprunteurs. Random Forest : 77,93% accuracy. F1-score macro : 64,62%.</div>
+      </a>
+      <a href="https://github.com/JeromeVitoff/Demie-journ-e-Data-Science" target="_blank" class="other-card fade-in">
+        <div class="other-card-title">Demi-Journée Data Science</div>
+        <div class="other-card-desc">Projet collaboratif couvrant l'ensemble du workflow data science : EDA, modélisation, visualisation.</div>
+      </a>
+      <a href="https://github.com/JeromeVitoff/ProjetUniversitaire-" target="_blank" class="other-card fade-in">
+        <div class="other-card-title">Analyse Pollution Aérienne</div>
+        <div class="other-card-desc">Analyse de données de qualité de l'air — modélisation prédictive et visualisation.</div>
+      </a>
+      <a href="https://github.com/JeromeVitoff/ProjetUniversitaire-" target="_blank" class="other-card fade-in">
+        <div class="other-card-title">Apprentissage Supervisé & Non Supervisé</div>
+        <div class="other-card-desc">Étude comparative — classification, régression, clustering, ACP, t-SNE.</div>
+      </a>
+      <a href="https://github.com/JeromeVitoff/Dashbord-Activite-Quotidient-" target="_blank" class="other-card fade-in">
+        <div class="other-card-title">Dashboard Activité Quotidienne</div>
+        <div class="other-card-desc">Tableau de bord personnel de suivi et visualisation de l'organisation du temps.</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- EXPÉRIENCES -->
+  <section id="experiences">
+    <div class="section-header fade-in">
+      <span class="section-num">03</span>
+      <h2>Expériences</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item fade-in">
+        <div class="timeline-date">Mars – Sept 2026 · En cours</div>
+        <div class="timeline-role">Stage Data Scientist — Sécurité Passive</div>
+        <div class="timeline-company">Renault Groupe · AMPERE S.A.A · Guyancourt</div>
+        <ul class="timeline-bullets">
+          <li>Création et nettoyage de la base de données de sécurité passive, intégrée dans les outils d'entreprise</li>
+          <li>Mise en place de dashboards interactifs permettant aux acteurs métiers d'exploiter les données</li>
+          <li>Investigation des concepts dataneering pour expliquer les écarts sur la déflexion thoracique en choc frontal</li>
+        </ul>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-date">Mai – Juillet 2024</div>
+        <div class="timeline-role">Stage Assistant Data Analyst</div>
+        <div class="timeline-company">CHU Montpellier · Montpellier</div>
+        <ul class="timeline-bullets">
+          <li>Implémentation d'algorithmes Deep Learning pour l'évaluation de textes médicaux générés par IA (PyTorch/TensorFlow)</li>
+          <li>Mise en place de métriques d'évaluation de performance et optimisation de modèles NLP</li>
+          <li>Automatisation du traitement de données de santé (Pandas, Matplotlib, VBA)</li>
+        </ul>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-date">Juillet 2019 – Avril 2020</div>
+        <div class="timeline-role">Stage Data Analyst</div>
+        <div class="timeline-company">INSAE · Cotonou, Bénin</div>
+        <ul class="timeline-bullets">
+          <li>Collecte et préparation de données pour le 1er recensement général des entreprises</li>
+          <li>Analyse de séries temporelles et calcul d'indicateurs macro-économiques</li>
+          <li>Production de tableaux de bord et visualisations économiques</li>
+        </ul>
+      </div>
+      <div class="timeline-item fade-in">
+        <div class="timeline-date">Octobre – Décembre 2018</div>
+        <div class="timeline-role">Stage Data Analyst</div>
+        <div class="timeline-company">SONACOP · Bénin</div>
+        <ul class="timeline-bullets">
+          <li>Analyse des ventes et revenus dans le secteur pétrolier</li>
+          <li>Extraction et interrogation de bases de données financières avec SQL</li>
+          <li>Élaboration de rapports d'aide à la décision pour la direction</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPÉTENCES -->
+  <section id="competences">
+    <div class="section-header fade-in">
+      <span class="section-num">04</span>
+      <h2>Compétences</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">ML / Deep Learning</div>
+        <div class="skill-tags">
+          <span class="skill-tag">CNN</span><span class="skill-tag">LSTM</span><span class="skill-tag">GRU</span>
+          <span class="skill-tag">Transformers</span><span class="skill-tag">Vision Transformers</span>
+          <span class="skill-tag">RAG</span><span class="skill-tag">MLOps</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag">PyTorch</span><span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Scikit-learn</span><span class="skill-tag">Keras</span>
+          <span class="skill-tag">LangChain</span><span class="skill-tag">Pandas</span><span class="skill-tag">NumPy</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Data Engineering</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Dask</span><span class="skill-tag">Spark</span>
+          <span class="skill-tag">Apache Airflow</span><span class="skill-tag">Apache Kafka</span>
+          <span class="skill-tag">ETL/ELT</span><span class="skill-tag">PySpark</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Cloud & Bases de données</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Azure ML</span><span class="skill-tag">GCP / BigQuery</span>
+          <span class="skill-tag">Snowflake</span><span class="skill-tag">PostgreSQL</span>
+          <span class="skill-tag">MySQL</span><span class="skill-tag">MongoDB</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Visualisation</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Streamlit</span><span class="skill-tag">Plotly</span>
+          <span class="skill-tag">Power BI</span><span class="skill-tag">Tableau</span>
+          <span class="skill-tag">Matplotlib</span><span class="skill-tag">Seaborn</span>
+        </div>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Programmation</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span><span class="skill-tag">R</span>
+          <span class="skill-tag">SQL</span><span class="skill-tag">VBA</span>
+          <span class="skill-tag">Docker</span><span class="skill-tag">Git</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATION -->
+  <section id="formation">
+    <div class="section-header fade-in">
+      <span class="section-num">05</span>
+      <h2>Formation</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="formation-list">
+      <div class="formation-item fade-in">
+        <div class="formation-year">2025–2026</div>
+        <div>
+          <div class="formation-title">Master 2 MIASHS — Data Science</div>
+          <div class="formation-school">Université de Montpellier Paul Valéry</div>
+        </div>
+      </div>
+      <div class="formation-item fade-in">
+        <div class="formation-year">2024–2025</div>
+        <div>
+          <div class="formation-title">Master 1 MIASHS</div>
+          <div class="formation-school">Université de Montpellier Paul Valéry</div>
+        </div>
+      </div>
+      <div class="formation-item fade-in">
+        <div class="formation-year">2022–2024</div>
+        <div>
+          <div class="formation-title">Licence MIASHS</div>
+          <div class="formation-school">Université de Montpellier Paul Valéry</div>
+        </div>
+      </div>
+      <div class="formation-item fade-in">
+        <div class="formation-year">2014–2018</div>
+        <div>
+          <div class="formation-title">Licence en Statistiques et Informatique</div>
+          <div class="formation-school">ENEAM & ESGIS · Bénin</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" style="max-width:100%;">
+    <div class="contact-inner fade-in">
+      <div class="hero-tag" style="justify-content:center;">Contact</div>
+      <h2 style="font-family:'DM Serif Display',serif;font-size:2.5rem;letter-spacing:-0.02em;">Travaillons ensemble</h2>
+      <p class="contact-text">
+        Je suis à la recherche d'un poste en CDI — Data Scientist, Data Analyst ou Data Engineer.<br>
+        Ouvert à toute opportunité en France.
+      </p>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#a4cec1d6cbc9c18ad2cdd0cbc2c2cbc0cecde4c3c9c5cdc88ac7cbc9" class="btn btn-primary"><span class="__cf_email__" data-cfemail="c1aba4b3aeaca4efb7a8b5aea7a7aea5aba881a6aca0a8adefa2aeac">[email&#160;protected]</span></a>
+        <a href="https://www.linkedin.com/in/jerome-vitoffodji" target="_blank" class="btn btn-outline">LinkedIn</a>
+        <a href="https://github.com/JeromeVitoff" target="_blank" class="btn btn-outline">GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-text">Adjimon Jérôme VITOFFODJI · 2026</span>
+    <span class="footer-text">jeromevitoff.github.io</span>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Intersection Observer pour les animations fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersect
