@@ -644,7 +644,7 @@
       <p class="hero-desc">
         Master 2 Data Science (MIASHS) — Université de Montpellier Paul Valéry.<br>
         Actuellement en stage chez Renault Groupe · AMPERE S.A.A (Sécurité Passive).<br>
-        À la recherche d'un poste en CDI — Data Scientist, Data Analyst ou Data Engineer.
+        À la recherche d'un poste en CDI — Data Scientist, Data Analyst, Data Engineer ou Ingénieur IA.
       </p>
       <div class="hero-cta">
         <a href="https://www.linkedin.com/in/jerome-vitoffodji" target="_blank" class="btn btn-primary">LinkedIn</a>
@@ -982,7 +982,7 @@
       <div class="hero-tag" style="justify-content:center;">Contact</div>
       <h2 style="font-family:'DM Serif Display',serif;font-size:2.5rem;letter-spacing:-0.02em;">Travaillons ensemble</h2>
       <p class="contact-text">
-        Je suis à la recherche d'un poste en CDI — Data Scientist, Data Analyst ou Data Engineer.<br>
+        Je suis à la recherche d'un poste en CDI — Data Scientist, Data Analyst, Data Engineer ou Ingénieur IA.<br>
         Ouvert à toute opportunité en France.
       </p>
       <div class="contact-links">
@@ -999,8 +999,25 @@
     <span class="footer-text">jeromevitoff.github.io</span>
   </footer>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // Intersection Observer pour les animations fade-in
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersect
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Fallback : force tous les éléments visibles après 800ms
+    setTimeout(() => {
+      document.querySelectorAll('.fade-in:not(.visible)').forEach(el => {
+        el.classList.add('visible');
+      });
+    }, 800);
+  </script>
+</body>
+</html>
